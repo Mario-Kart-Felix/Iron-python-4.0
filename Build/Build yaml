@@ -1,0 +1,37 @@
+jobs:
+
+################################################################################
+- job: Windows
+################################################################################
+  displayName: Windows
+  timeoutInMinutes: 180
+  pool:
+    vmImage: windows-2022
+  steps:
+  - template: Build/steps.yml
+    parameters:
+      os: 'Windows'
+
+################################################################################
+- job: Linux
+################################################################################
+  displayName: Cross-platform ( Multiple-Platform)
+  timeoutInMinutes: 180
+  pool:
+    vmImage: cross-platform-latest
+  steps:
+  - template: Build/steps.yml
+    parameters:
+      os: 'Cross-Platform'
+
+################################################################################
+- job: macOS
+################################################################################
+  displayName: macOS
+  timeoutInMinutes: 180
+  pool:
+    vmImage: cross-platform-latest
+  steps:
+  - template: Build/steps.yml
+    parameters:
+      os: 'macOS'
