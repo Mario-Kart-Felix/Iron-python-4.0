@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <MainBuildPrefix Condition=" '$(MainBuildPrefix)' == '' "></MainBuildPrefix>
+    <Mono Condition="'$(OS)' != 'Windows_NT'">true</Mono>
+    <MacOS Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</MacOS>
+
+    <RootDir>$(MSBuildThisFileDirectory)</RootDir>
+    <Solution>$(RootDir)IronPython.sln</Solution>
+    <UtilDir>$(RootDir)Util</UtilDir>
+    <ReferenceDir>$(RootDir)Util\References</ReferenceDir>
+    <BinDir>$(RootDir)bin</BinDir>
+    <BuildSysDir>$(RootDir)Build</BuildSysDir>
+  </PropertyGroup>
+
+  <Import Project="$(BuildSysDir)\Tasks.Targets" />
+  <Import Project="$(MSBuildThisFileDirectory)\CurrentVersion.props" />
+
+  <PropertyGroup>
+    <PackageVersion Condition="'$(ReleaseLevel)' == 'final'">$(MajorVersion).$(MinorVersion).$(MicroVersion)</PackageVersion>
+    <PackageVersion Condition="'$(ReleaseLevel)' != 'final' or '$(ReleaseSerial)' != '0'">$(MajorVersion).$(MinorVersion).$(MicroVersion)-$(ReleaseLevel)$(ReleaseSerial)</PackageVersion>
+    <StageDir>$(RootDir)Package\$(Configuration)\Stage\IronPython-$(PackageVersion)</StageDir>
+    <PackageDir>$(RootDir)Package\$(Configuration)\Packages\IronPython-$(PackageVersion)</PackageDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildProperties>
+      RootDir=$(RootDir);
+      Solution=$(Solution);
+      Configuration=$(Configuration);
+      BinDir=$(BinDir);
+      StageDir=$(StageDir);
+      BuildSysDir=$(BuildSysDir);
+      Mono=$(Mono);
+    </BuildProperties>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <NuGet>$(UtilDir)\NuGet\nuget.exe</NuGet>
+    <NuGet Condition=" '$(Mono)' != '' ">mono $(NuGet)</NuGet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MainStageFiles Include="$(RootDir)README.md" />
+    <MainStageFiles Include="$(RootDir)LICENSE" />
+  </ItemGroup>
+
+  <Target Name="RestoreReferences">
+    <MSBuild Projects="$(Solution)" Targets="Restore" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="RestoreReferences">
+    <MSBuild 
+      Projects="$(Solution)" 
+      Targets="Build"
+      Properties="$(BuildProperties);Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="Rebuild" DependsOnTargets="RestoreReferences">
+    <MSBuild 
+      Projects="$(Solution)" 
+      Targets="Rebuild" 
+      Properties="$(BuildProperties);Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="Clean">
+    <MSBuild 
+      Projects="$(Solution)" 
+      Targets="Clean" 
+      Properties="$(BuildProperties);Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="_MakeStageDir">
+    <MakeDir Directories="$(StageDir)" Condition="!Exists('$(StageDir)')" />
+  </Target>
+
+  <Target Name="_PlatformStage" DependsOnTargets="RestoreReferences;_MakeStageDir">
+    <MSBuild 
+      Projects="$(Solution)" 
+      Targets="Build" 
+      Properties="$(BuildProperties);Configuration=$(Configuration);Staging=true" />
+  </Target>
+
+  <Target Name="_CopyDlrMainReferences" DependsOnTargets="_MakeStageDir">
+    <ItemGroup>
+      <DlrMainReferenceFiles
+          Include="$(BinDir)\$(Configuration)\*\Microsoft.Scripting.dll" />
+      <DlrMainReferenceFiles
+          Include="$(BinDir)\$(Configuration)\*\Microsoft.Scripting.xml" />
+      <DlrMainReferenceFiles
+          Include="$(BinDir)\$(Configuration)\*\Microsoft.Dynamic.dll" />
+      <DlrMainReferenceFiles
+          Include="$(BinDir)\$(Configuration)\*\Microsoft.Dynamic.xml" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(DlrMainReferenceFiles)"
+          DestinationFolder="$(StageDir)\%(RecursiveDir)" />
+  </Target>
+
+  <Target Name="_CopyMainStageFiles" DependsOnTargets="_MakeStageDir">
+    <Copy SourceFiles="@(MainStageFiles)" DestinationFolder="$(StageDir)" />
+  </Target>
+
+  <Target Name="_CopyStdLib" DependsOnTargets="_MakeStageDir">
+    <MSBuild Projects="$(RootDir)\Src\StdLib\StdLib.pyproj"
+             Properties="OutputPath=$(StageDir)"
+             Targets="Stage" />
+  </Target>
+
+  <PropertyGroup>
+    <StageDependsOn>
+      _MakeStageDir;
+      _PlatformStage;
+      _CopyDlrMainReferences;
+      _CopyMainStageFiles;
+      _CopyStdLib;
+    </StageDependsOn>
+  </PropertyGroup>
+
+  <Target Name="Stage" DependsOnTargets="$(StageDependsOn)" />
+
+  <!-- This looks like an empty target, but the targets files use it as an AfterTargets -->
+  <Target Name="Package" DependsOnTargets="Stage" />
+
+  <Import Project="$(RootDir)\Package\**\*.Packaging.targets" />
+</Project>
