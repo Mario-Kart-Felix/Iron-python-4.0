@@ -1,0 +1,2 @@
+# Iron-python-4.o
+IronPython is an excellent addition to .NET, providing Python developers with the power of the .NET. Existing .NET developers can also use IronPython as a fast and expressive scripting language for embedding, testing, or writing a new application from scratch.  The CLR is a great platform for creating programming languages, and the DLR makes it all the better for dynamic languages. Also, the .NET (base class library, presentation foundation, etc.) gives developers an amazing amount of functionality and power.
