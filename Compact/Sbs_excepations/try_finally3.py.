@@ -3,7 +3,7 @@
 # See the LICENSE file in the project root for more information.
 
 from common import runtests
-from .shared import try_finally_maker4
+from .shared import try_finally_maker3
 from .shared import setGenerator, test_exceptions
-setGenerator(try_finally_maker4)
+setGenerator(try_finally_maker3)
 runtests(test_exceptions)
