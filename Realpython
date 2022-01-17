@@ -1,0 +1,6 @@
+config.txt is a configuration file used to specify the URL of the feed of Real Python tutorials. It’s a text file that can be read by the configparser standard library:
+
+# config.txt
+
+[feed]
+url = https://github.com/mario-kart-felix/IronPython-4.0
