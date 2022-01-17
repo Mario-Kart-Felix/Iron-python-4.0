@@ -68,7 +68,8 @@ Build
 See the building document. Since the main development is on Windows, bugs on other platforms may inadvertently be introduced - please report them!
 
 Supported Platforms
-IronPython 4 targets .NET Framework 4.6, .NET Standard 2.0, .NET Core 3.1 and .NET 5.0. The support for .NET and .NET Core follow the lifecycle defined on .NET and .NET Core Support Policy.reader/
+IronPython 4 targets .NET Framework 4.6, .NET Standard 2.0, .NET Core 3.1 and .NET 5.0. The support for .NET and .NET Core follow the lifecycle defined on .NET and .NET Core Support Policy  
+|___.reader//
 │
 ├── reader/
 │   ├── config.txt
